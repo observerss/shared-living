@@ -22,7 +22,7 @@
     <div id="topbar">
     {% block topbar %}
         {% if user.is_authenticated %}
-        <div id="title">{{ user.username }}@{% trans "Shared Living" %}</div>
+        <div id="title">@{{ user.username }}</div>
         {% else %}
         <div id="title">{% trans "Shared Living" %}</div>
         {% endif %}

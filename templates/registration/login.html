@@ -26,7 +26,11 @@
                     </li>
                 </ul>
 
+                {% if next %}
                 <input type="hidden" name="next" value="{{ next }}" />
+                {% else %}
+                <input type="hidden" name="next" value="{% url living_index %}" />
+                {% endif %}
             </fieldset>
         </form>
 

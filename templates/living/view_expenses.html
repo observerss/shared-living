@@ -10,7 +10,6 @@
                 <a class="noeffect" href="{{ exp.expense_id }}/">
                     <span class="number">{{ forloop.counter|add:offset }}</span>
                     <span class="name">{{ exp.spent_on }} : {{ exp.subject }} : ${{ exp.amount }}</span>
-                    <span class="comment">{{ exp.payer_names }}/{{ exp.consumer_names }}</span>
                     <span class="arrow"></span>
                 </a>
             </li>
@@ -18,6 +17,11 @@
 
             <div id="updates"></div>
             <div id="loading"></div>
+            <li id="has_more">
+                <a id="next_{{ limit }}" class="noeffect" href="#">
+                    <span class="name">{% trans "Next" %} {{ limit }} {% trans Results %}</span>
+                </a>
+            </li>
             
             <!-- Handle the results updates through jquery -->
             <script type="text/javascript">
@@ -40,12 +44,10 @@
                     return false;
                 });
             });
+            {% if has_no_more %}
+            $("#has_more").html('<a class="noeffect" href="#"><span class="name">{% trans "End of List" %}</span></a>');
+            {% endif %}
             </script>
 
-            <li>
-                <a id="next_{{ limit }}" class="noeffect" href="#">
-                    <span class="name">{% trans "Next" %} {{ limit }} {% trans Results %}</span>
-                </a>
-            </li>
         </ul>
     {% endblock %}

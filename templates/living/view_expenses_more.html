@@ -5,8 +5,12 @@
                 <a class="noeffect" href="{{ exp.expense_id }}/">
                     <span class="number">{{ forloop.counter|add:offset }}</span>
                     <span class="name">{{ exp.spent_on }} : {{ exp.subject }} : ${{ exp.amount }}</span>
-                    <span class="comment">{{ exp.payer_names }}/{{ exp.consumer_names }}</span>
                     <span class="arrow"></span>
                 </a>
             </li>
             {% endfor %}
+            <script type="text/javascript">
+            {% if has_no_more %}
+            $("#has_more").html('<a class="noeffect" href="#"><span class="name">{% trans "End of List" %}</span></a>');
+            {% endif %}
+            </script>
