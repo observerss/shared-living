@@ -1,0 +1,117 @@
+{% extends "living/base.html" %}
+{% load i18n %}
+
+    {% block content %}
+        <span class="graytitle">{% trans "Record details" %}</span>
+        <form method="POST" action=".">{% csrf_token %}
+            <fieldset>
+                <ul class="pageitem">
+                    {% if form.non_field_errors %}
+                    <li class="textbox">{{ form.non_field_errors }}</li>
+                    {% endif %}
+
+                    <li class="textbox">
+                    {% for field in form %}
+                        {% if field.errors %}
+                            {{ field.html_name }}<p>{{ field.errors }}<p>
+                        {% endif %}
+                    {% endfor %}
+                    </li>
+
+                    <li class="smallfield">
+                        <span class="name">{% trans "Subject" %}</span>
+                        <input name="subject" placeholder="Subject" type="text" class="required" maxlength="80" value="{{ expense.subject }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Created by" %}</span>
+                        <input name="creater_name" type="text" maxlength="80" value="{{ expense.creater_name }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Message" %}</span>
+                        <input name="message" placeholder="Message" type="text"  maxlength="65536" value="{{ expense.message }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Amount" %}</span>
+                        <input name="amount" placeholder="Amount" type="text" class="required" maxlength="80" value="{{ expense.amount }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Payer names" %}</span>
+                        <input name="payer_names" placeholder="Separate by comma" type="text" class="required" maxlength="80" value="{{ expense.payer_names }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Consumer names" %}</span>
+                        <input name="consumer_names" placeholder="Separate by comma" type="text" class="required" maxlength="80" value="{{ expense.consumer_names }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Tags" %}</span>
+                        <input name="tags" placeholder="Separate by comma" type="text" class="required" maxlength="80" value="{{ expense.tags }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Spent on" %}</span>
+                        <input name="spent_on" placeholder="Date YYYY-MM-DD" type="text" class="required" maxlength="80" value="{{ expense.spent_on }}" />
+                    </li> 
+                    {% if user.username == expense.creater_name %}
+                    <li class="button">
+                        <input type="submit" name="{% trans 'Edit' %}" value="{% trans 'Edit' %}" />
+                    </li>
+                    {% else %}
+                        {% if user.username in expense.consumer_names %}
+                            <li class="button">
+                                <input type="button" name="{% trans 'Doubt' %}" value="Doubt" />
+                            </li>
+                        {% else %}
+                            {% if user.username in expense.payer_names %}
+                                <li class="button">
+                                    <input type="button" name="{% trans 'Doubt' %}" value="Doubt" />
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </ul>
+
+            </fieldset>
+        </form>
+        <span class="graytitle">{% trans "Comments" %}</span>
+        <ul class="pageitem">
+            <div id="updates"></div>
+            <div id="loading"></div>
+            <!-- Handle the results updates through jquery -->
+            <script type="text/javascript">
+            $(function(){
+                // Update Comments 
+                $("#next_20").click(function() {
+                    $("#loading").show();
+                    $("#loading").fadeIn(400).html('<li><span class="name">Loading...</span></li>');     
+                    $.ajax({
+                        type: "POST",
+                        url: ".",
+                        data: "offset="+$("#updates.li").length,
+                        cache: false,
+                        success: function(html){
+                            $("#loading").hide();
+                            $("#update").append(html);
+                        }
+                    });
+                    return false;
+                });
+            });
+            $("#next_20").click();
+            </script>
+            <li class="button">
+                <input type="submit" id="next_20" value="{% trans 'Next 20 comments' %}" />
+            </li>
+        </ul>
+        <span class="graytitle">{% trans "Post Comment" %}</span>
+        <ul class="pageitem">
+            <form method="POST" action="comment/">{% csrf_token %}
+                <fieldset>
+                    <li class="bigfield">
+                        <input name="message" placeholder="Message" type="text" class="required" maxlength="65536" value="{{ form_comment.data.message }}" />
+                    </li> 
+                    <li class="button">
+                        <input type="submit" name="{% trans 'Post' %}" value="{% trans 'Post' %}" />
+                    </li>
+                </fieldset>
+            </form>
+        </ul>
+    {% endblock %}

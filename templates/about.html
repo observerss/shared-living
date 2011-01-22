@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+    {% if user.is_authenticated %}
+        {% block tributton %}
+             <div class="links">
+                 <a href="{% url index %}">{% trans "Home" %}</a><a href="{% url living_index %}">{% trans "Living" %}</a><a id="pressed" href="{% url about %}">{% trans "About" %}</a>
+            </div>
+        {% endblock %}
+    {% else %}
+        {% block duobutton %}
+             <div class="links">
+                 <a id="pressed" href="{% url index %}">{% trans "Home" %}</a><a id="pressed" href="{% url about %}">{% trans "About" %}</a>
+            </div>
+        {% endblock %}
+    {% endif %}
+
+    {% block content %}
+        <span class="graytitle">{% trans "About Shared Living." %}</span>
+        <ul class="pageitem">
+            <li class="textbox">
+                <span class="header">{% trans "Introduction" %}</span><p>
+                {% trans "Shared Living is a simple book keeping software that designed for a shared life(e.g. shared apartment rental). When multiusers are involed, money becomes a shared resource, instead of do the calculating for every bill, shared living choose to record on the spent and allocate the bill periodically.<p>" %} 
+                {% trans "For more details, please visit <a href='http://obmem.info/?p=787'>http://obmem.info/?p=787</a>.<p>" %}
+                <span class="header">{% trans "Implementation" %}</span><p>
+                {% trans "Shared Living is written in django and hosted on google app engine. I expect it to be stable and fast enough.<p>" %}
+                {% trans "This site should be open source soon, subscribe my blog for the updates: <a href='http://obmem.info'>http://obmem.info</a>.<p>" %}
+                
+                <span class="header">{% trans "About author" %}</span><p>
+                {% trans "Designed and coded by observer: jingchaohu AT gmail.com<p>" %}
+            </li>
+        </ul>
+    {% endblock %}

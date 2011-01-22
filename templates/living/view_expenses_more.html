@@ -1,0 +1,12 @@
+{% load i18n %}
+
+            {% for exp in expenses %}
+            <li>
+                <a class="noeffect" href="{{ exp.expense_id }}/">
+                    <span class="number">{{ forloop.counter|add:offset }}</span>
+                    <span class="name">{{ exp.spent_on }} : {{ exp.subject }} : ${{ exp.amount }}</span>
+                    <span class="comment">{{ exp.payer_names }}/{{ exp.consumer_names }}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+            {% endfor %}

@@ -1,0 +1,57 @@
+{% extends "living/base.html" %}
+{% load i18n %}
+
+    {% block content %}
+        <span class="graytitle">{% trans "Create New Record" %}</span>
+        <form method="POST" action=".">{% csrf_token %}
+            <fieldset>
+                <ul class="pageitem">
+                    {% if form.non_field_errors %}
+                    <li class="textbox">{{ form.non_field_errors }}</li>
+                    {% endif %}
+
+                    <li class="textbox">
+                    {% for field in form %}
+                        {% if field.errors %}
+                            {{ field.html_name }}<p>{{ field.errors }}<p>
+                        {% endif %}
+                    {% endfor %}
+                    </li>
+
+                    <li class="smallfield">
+                        <span class="name">{% trans "Subject" %}</span>
+                        <input name="subject" placeholder="Subject" type="text" class="required" maxlength="80" value="{{ form.data.subject }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Message" %}</span>
+                        <input name="message" placeholder="Message" type="text"  maxlength="65536" value="{{ form.data.message }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Amount" %}</span>
+                        <input name="amount" placeholder="Amount" type="text" class="required" maxlength="80" value="{{ form.data.amount }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Payer names" %}</span>
+                        <input name="payer_names" placeholder="Separate by comma" type="text" class="required" maxlength="80" value="{{ form.data.payer_names }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Consumer names" %}</span>
+                        <input name="consumer_names" placeholder="Separate by comma" type="text" class="required" maxlength="80" value="{{ form.data.consumer_names }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Tags" %}</span>
+                        <input name="tags" placeholder="Separate by comma" type="text" class="required" maxlength="80" value="{{ form.data.tags }}" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Spent on" %}</span>
+                        <input name="spent_on" placeholder="Date YYYY-MM-DD" type="text" class="required" maxlength="80" value="{{ form.data.spent_on }}" />
+                    </li> 
+                    <input type="hidden" name="creater_name" value="{{ user.username }}" />
+                    <li class="button">
+                        <input type="submit" name="{% trans 'Submit' %}" value="{% trans 'Submit' %}" />
+                    </li>
+                </ul>
+
+            </fieldset>
+        </form>
+    {% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+    {% block content %}
+        <form method="post" action=".">{% csrf_token %}
+            <fieldset><span class="graytitle">Enter Login Information</span>
+                <ul class="pageitem">
+                    {% if form.non_field_errors %}
+                    <li class="textbox">{{ form.non_field_errors }}</li>
+                    {% endif %}
+
+                    <li class="smallfield">
+                        <span class="name">{% trans "Username" %}</span>
+                        <input name="username" placeholder="Username" type="text" />
+                    </li> 
+                    <li class="smallfield">
+                        <span class="name">{% trans "Password" %}</span>
+                        <input name="password" placeholder="Password" type="password" />
+                    </li> 
+                    <li class="checkbox">
+                        <span class="name">{% trans "Remember Me" %}</span>
+                        <input name="remember" type="checkbox" checked="True" />
+                    </li>
+                    <li class="button">
+                        <input type="submit" name="{% trans 'Log in' %}" value="{% trans 'Log in' %}" />
+                    </li>
+                </ul>
+
+                <input type="hidden" name="next" value="{{ next }}" />
+            </fieldset>
+        </form>
+
+        <ul class="pageitem">
+            <li class="textbox">
+                <span class="header">
+                    {% trans "Forgot password?" %}<a href="{% url auth_password_reset %}">{% trans "Reset it!" %}</a>
+                </span>
+                <span class="header">
+                    {% trans "Not member" %}? <a href="{% url registration_register %}">{% trans "Register!" %}</a>
+                </span>
+            </li>
+        </ul>
+{% endblock %}

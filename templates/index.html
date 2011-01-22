@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+    {% block content %}
+        <span class="graytitle">{% trans "Features" %}</span>
+        <ul class="pageitem">
+            <li class="menu">
+                <a href="{% url about %}">
+                    <img src="/static/thumbs/plugin.png" />
+                    <span class="name">{% trans "Learning Shared Living" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+            <li class="menu">
+                <a href="#">
+                    <img src="/static/thumbs/other.png" />
+                    <span class="name">{% trans "What's new?" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+            <li class="menu">
+                <a href="{% url auth_login %}">
+                    <img src="/static/thumbs/start.png" />
+                    <span class="name">{% trans "Log in" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+            <li class="menu">
+                <a href="{% url registration_register %}">
+                    <img src="/static/thumbs/accessibility.png" />
+                    <span class="name">{% trans "Register" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+            <li class="menu">
+                <a href="#">
+                    <img src="/static/thumbs/wordpress.png" />
+                    <span class="name">{% trans "The Blog" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+        </ul>
+    {% endblock %}

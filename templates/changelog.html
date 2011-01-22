@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+    {% block tributton %}
+        <div class="links">
+            <a href="{% url index %}">{% trans "Home" %}</a><a id="pressed" href="{% url changelog %}">{% trans "Changlog" %}</a><a href="{% url about %}">{% trans "About" %}</a>
+        </div>
+    {% endblock %}
+
+    {% block content %}
+        <span class="graytitle">{% trans "Changelog for Shared Living 1.1" %}</span>
+        <ul class="pageitem">
+            <li class="textbox">{% trans "For the entire changelog since version 0, please download shared living desktop" %}</li>
+        </ul>
+        <ul class="pageitem">
+            <li class="textbox">
+                <ul>
+                    <li>canceled encryption</li>
+                    <li>rewritten in django</li>
+                </ul>
+            </li>
+        </ul>
+    {% endblock %}

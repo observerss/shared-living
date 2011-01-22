@@ -1,0 +1,51 @@
+{% extends "living/base.html" %}
+{% load i18n %}
+
+    {% block bodyclass %} class="musiclist"{% endblock %}
+
+    {% block content %}
+        <ul>
+            {% for exp in expenses %}
+            <li>
+                <a class="noeffect" href="{{ exp.expense_id }}/">
+                    <span class="number">{{ forloop.counter|add:offset }}</span>
+                    <span class="name">{{ exp.spent_on }} : {{ exp.subject }} : ${{ exp.amount }}</span>
+                    <span class="comment">{{ exp.payer_names }}/{{ exp.consumer_names }}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+            {% endfor %}
+
+            <div id="updates"></div>
+            <div id="loading"></div>
+            
+            <!-- Handle the results updates through jquery -->
+            <script type="text/javascript">
+            $(function(){
+                // Update Expense 
+                $("#next_{{ limit }}").click(function() {
+                    $("#loading").show();
+                    $("#loading").fadeIn(400).html('<li><span class="name">Loading...</span></li>');     
+                    var offset = {{ limit }}+$("li").size()-li_count-1;
+                    $.ajax({
+                        type: "POST",
+                        url: ".",
+                        data: "offset="+offset,
+                        cache: false,
+                        success: function(html){
+                            $("#loading").hide();
+                            $("#updates").append(html);
+                        }
+                    });
+                    return false;
+                });
+            });
+            </script>
+
+            <li>
+                <a id="next_{{ limit }}" class="noeffect" href="#">
+                    <span class="name">{% trans "Next" %} {{ limit }} {% trans Results %}</span>
+                </a>
+            </li>
+        </ul>
+    {% endblock %}

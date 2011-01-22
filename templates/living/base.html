@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+    {% block navbutton %}
+        <div id="tributton">
+        <div class="links">
+             <a href="{% url index %}">{% trans "Home" %}</a><a id="pressed" href="{% url living_index %}">{% trans "Living" %}</a><a href="{% url about %}">{% trans "About" %}</a>
+         </div>
+         </div>
+    {% endblock %}

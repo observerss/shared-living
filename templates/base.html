@@ -1,0 +1,76 @@
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="index,follow" name="robots" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <link href="/static/pics/homescreen.gif" rel="apple-touch-icon" />
+    <meta content="minimum-scale=1.0, width=device-width maximum-scale=0.6667, user-scalable=no" name="viewport" />
+    <link rel="stylesheet" href="/static/css/style.css" media="screen" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script src="/static/javascript/functions.js" type="text/javascript"></script>
+    <title>{% block title %}Shared Living{% endblock %}</title>
+    <link href="/static/pics/startup.png" rel="apple-touch-startup-image" />
+    <meta content="Shared Living" name="keywords" />
+    <meta content="Shared Living is a tool to record and manage the money during a shared living" name="description" />
+</head>
+
+<body{% block bodyclass %}{% endblock %}>
+    <div id="topbar">
+    {% block topbar %}
+        {% if user.is_authenticated %}
+        <div id="title">{{ user.username }}@{% trans "Shared Living" %}</div>
+        {% else %}
+        <div id="title">{% trans "Shared Living" %}</div>
+        {% endif %}
+        <div id="leftnav">
+            <a href="{% url index %}"><img alt="home" src="/static/images/home.png" /></a>
+        </div>
+        <div id="rightnav">
+            {% if user.is_authenticated %}
+	        <a href="{% url auth_logout %}">{% trans "Log out" %}</a>
+    	    {% else %}
+	        <a href="{% url auth_login %}">{% trans "Log in" %}</a>
+            {% endif %}
+        </div>
+    {% endblock %}
+    </div>
+    
+    {% block navbutton %}
+    {% if user.is_authenticated %}
+        <div id="tributton">
+        {% block tributton %}
+             <div class="links">
+                 <a id="pressed" href="{% url index %}">{% trans "Home" %}</a><a href="{% url living_index %}">{% trans "Living" %}</a><a href="{% url about %}">{% trans "About" %}</a>
+            </div>
+        {% endblock %}
+        </div>
+    {% else %}
+        <div id="duobutton">
+        {% block duobutton %}
+             <div class="links">
+                 <a id="pressed" href="{% url index %}">{% trans "Home" %}</a><a href="{% url about %}">{% trans "About" %}</a>
+            </div>
+        {% endblock %}
+        </div>
+    {% endif %}
+    {% endblock %}
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div id="footer">
+    {% block footer %}
+        <a href="http://iwebkit.net">Powered by iWebKit</a></div>
+        <script type="text/javascript">
+            var li_count = $("li").size();
+        </script>
+    {% endblock %}
+    </div>
+</body>
+
+</html>

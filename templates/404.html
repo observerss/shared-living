@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Object not found" %}{% endblock %}
+
+    {% if user.is_authenticated %}
+        {% block tributton %}
+             <div class="links">
+                 <a href="{% url index %}">{% trans "Home" %}</a><a href="{% url living_index %}">{% trans "Living" %}</a><a id="pressed" href="#">{% trans "Error" %}</a>
+            </div>
+        {% endblock %}
+    {% else %}
+        {% block duobutton %}
+             <div class="links">
+                 <a id="pressed" href="{% url index %}">{% trans "Home" %}</a><a id="pressed" href="#">{% trans "Error" %}</a>
+            </div>
+        {% endblock %}
+    {% endif %}
+
+    {% block content %}
+        <span class="graytitle">{% trans "Object not found" %}</span>
+        <ul class="pageitem">
+            <li class="textbox">
+                <span class="header">{% trans "404" %}</span><p>
+                {% trans "unable to locate the content you requested.<p>" %} 
+            </li>
+        </ul>
+    {% endblock %}

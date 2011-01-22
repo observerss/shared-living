@@ -1,0 +1,56 @@
+{% extends "living/base.html" %}
+{% load i18n %}
+
+    {% block content %}
+        <span class="graytitle">{% trans "Records" %}</span>
+        <ul class="pageitem">
+            <li class="menu">
+                <a href="{% url living_create_new_record %}">
+                    <img src="/static/thumbs/plugin.png" />
+                    <span class="name">{% trans "Create new record" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+            <li class="menu">
+                <a href="{% url living_view_records %}">
+                    <img src="/static/thumbs/other.png" />
+                    <span class="name">{% trans "View records" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+        </ul>
+        <span class="graytitle">{% trans "Recurrings" %}</span>
+        <ul class="pageitem">
+            <li class="menu">
+                <a href="#">
+                    <img src="/static/thumbs/start.png" />
+                    <span class="name">{% trans "Create new recurring" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+            <li class="menu">
+                <a href="#">
+                    <img src="/static/thumbs/accessibility.png" />
+                    <span class="name">{% trans "View recurrings" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+        </ul>
+        <span class="graytitle">{% trans "Statements" %}</span>
+        <ul class="pageitem">
+            <li class="menu">
+                <a href="#">
+                    <img src="/static/thumbs/wordpress.png" />
+                    <span class="name">{% trans "My statement" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+            <li class="menu">
+                <a href="#">
+                    <img src="/static/thumbs/wordpress.png" />
+                    <span class="name">{% trans "My Invoices" %}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+        </ul>
+    {% endblock %}
